@@ -38,6 +38,9 @@ for project in $PROJECTS;do
     for step in $STEPS;do
         skip=""
         if [ "x${step}" = "fixperms" ];then
+            if [ "x${project}" = "xcorpus-lizmap" ];then
+                skip="1"
+            fi
             if [ "x${project}" = "xcorpus-drupal" ];then
                 skip="1"
             fi
