@@ -20,7 +20,7 @@ W=$PWD
 STEPS="archive fixperms rollback notify"
 MS_URL="https://raw.githubusercontent.com/makinacorpus/makina-states/stable/files/projects/2/salt"
 for step in $STEPS;do
-    wget --no-check-certificate "${MS_URL}/${step}.sls" -O - > "$W/${step}.sls"
+    wget --no-check-certificate "${MS_URL}/${step}.sls" -O -|grep -v "{%\s*raw"|grep -v "{%\s*endraw" > "$W/${step}.sls"
 #    python -c "import time;time.sleep(0.5)"
 done
 for project in $PROJECTS;do
@@ -45,6 +45,7 @@ for project in $PROJECTS;do
                 skip="1"
             fi
         fi
+        pwd
         if [ "x${skip}" = "x" ];then
             cp -fv "$W/${step}.sls" ".salt/${step}.sls"
         fi
